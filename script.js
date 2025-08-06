@@ -6,12 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const socket = new WebSocket('wss://echo-ws-service.herokuapp.com');
 
-  socket.addEventListener('open', (event) => {
-    console.log('Соединение установлено');
+  socket.addEventListener('open', () => {
+   console.log('WebSocket подключён!', socket.readyState);
   });
 
-   socket.addEventListener('error', (event) => {
-    console.log('Ошибка соединения:', event);
+  socket.addEventListener('error', (error) => {
+   console.error('Ошибка WebSocket:', error);
+  });
+
+  socket.addEventListener('close', () => {
+   console.log('WebSocket закрыт');
   });
 
   function addMessageToChat(messageInput, isUser = false, isGeo = false) {
@@ -55,11 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (socket.readyState === WebSocket.OPEN) {
-      addMessageToChat(message, true);
+      console.log('Отправка сообщения:', message);
       socket.send(message);
+      addMessageToChat(message, true);
       messageInput.value = "";
     } else {
-      console.error('Соединение не активно')
+      console.error('Соединение не активно. Статус:', socket.readyState);
     } 
   });
 
