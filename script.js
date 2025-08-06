@@ -49,6 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
   sendBtn.addEventListener('click', () => {
     const message = messageInput.ariaValueMax.trim();
     if (message) {
+        alert('Введите сообщение');
+        return;
         addMessageToChat(message, true);
         socket.send(message);
         messageInput.value = '';
@@ -89,3 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   });
 });
+
+
+if (socket.readyState !== WebSocket.OPEN) {
+    socket = new WebSocket('wss://echo-ws-service.herokuapp.com');
+}
