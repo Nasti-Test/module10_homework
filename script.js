@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   messageInput.addEventListener('keypress', (event) => {
-    if (event.key === 'Event') {
+    if (event.key === 'Enter') {
         sendBtn.click();
     }
   });
