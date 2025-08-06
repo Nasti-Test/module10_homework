@@ -103,7 +103,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-
-if (socket.readyState !== WebSocket.OPEN) {
-    socket = new WebSocket('wss://echo-ws-service.herokuapp.com');
-}
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
