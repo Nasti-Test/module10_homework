@@ -47,14 +47,20 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   sendBtn.addEventListener('click', () => {
-    const message = messageInput.ariaValueMax.trim();
-    if (message) {
+    const message = messageInput.value.trim();
+
+    if (!message) {
         alert('Введите сообщение');
         return;
-        addMessageToChat(message, true);
-        socket.send(message);
-        messageInput.value = '';
     }
+
+    if (socket.readyState === WebSocket.OPEN) {
+      addMessageToChat(message, true);
+      socket.send(message);
+      messageInput.value = "";
+    } else {
+      console.error('Соединение не активно')
+    } 
   });
 
   messageInput.addEventListener('keypress', (event) => {
